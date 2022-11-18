@@ -1,11 +1,17 @@
-const express = require('express')
-const app = express()
+import mongoose from 'mongoose';
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+const app = express();
 
 
-app.get('/', (req, res) => {
-    res.send("Hello John");
-});
+const uri = "mongodb+srv://woodsjc:BYRRwMYpTtkbOtQp@cluster0.wqrzkda.mongodb.net/?retryWrites=true&w=majority";
+const PORT = process.env.PORT || 5000;
 
-app.listen(3001, () => {
-    console.log('Running on port 3001');
-});
+main().catch(err => console.log(err));
+
+async function main(){
+    await mongoose.connect(uri);
+    
+    console.log('Connection Successful');
+}
