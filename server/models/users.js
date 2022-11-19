@@ -9,10 +9,8 @@ const schema = mongoose.Schema({
         type: String,
         required: [true, "No email"],
         unique: true,
-        trim: true
-        // match: [
-            
-        // ]
+        trim: true,
+        match: [/^\S+@\S+\.\S+$/]
     },
     password: {
         type: String,

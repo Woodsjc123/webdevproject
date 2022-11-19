@@ -4,7 +4,6 @@ export const errorHandler = (err, req, res, action) => {
     res.status(status)
 
     res.json({
-        message: err.message,
-        stack: err.stack    
+        message: err.message, 
     })
 };

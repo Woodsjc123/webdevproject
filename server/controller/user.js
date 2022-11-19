@@ -1,47 +1,54 @@
-import { request } from "express";
 import { user } from "../models/users.js";
+import asyncHandler from "express-async-handler";
 
 // Registers a new user
-export const register = async (req, res) => {
-    try {
-        const {username, email, password} = req.body    // Body of the request
+export const register = asyncHandler(async (req, res) => {
 
-        // Verification
-        if(!username || !email || !password) {  // Checks if all fields have been submitted
-            res.status(400)
-            throw new Error("Missing Required Fields");
-        }
-        if (password.length < 8) {  // Checks if password meets required length
-            res.status(400)
-            throw new Error("Password must be at least 8 characters long");
-        }
+    const {username, email, password} = req.body;    // Body of the request
 
-        const userExists = await user.findOne({email})
-
-        // Checks if email is already in use
-        if(userExists){
-            res.status(400)
-            throw new Error("Email is already registered");
-        }
-
-        const newUser = await user.create({
-            username,
-            email,
-            password
-        });
-
-        if(newUser){
-            res.status(201).json({
-                _id: user.id,
-                username: user.username
-            })
-        }
-        else {
-            res.status(400)
-            throw new Error("Unable to create user");
-        }
-
-        } catch (error) {
-
+    // Verification
+    if(!username) {  // Checks if username has been submitted
+        res.status(400);
+        throw new Error("Missing Username");
     }
-};
+    if(!email) {  // Checks if email has been submitted
+        res.status(400);
+        throw new Error("Missing Email");
+    }
+    if(!password) {  // Checks if password has been submitted
+        res.status(400);
+        throw new Error("Missing Password");
+    }
+
+    if (password.length < 8) {  // Checks if password meets required length
+        res.status(400);
+        throw new Error("Password must be at least 8 characters long");
+    }
+
+    const userExists = await user.findOne({email});
+
+    // Checks if email is already in use
+    if(userExists){
+        res.status(400);
+        throw new Error("Email is already registered");
+    }
+
+    const newUser = await user.create({
+        username,
+        email,
+        password
+    });
+
+    if(newUser){
+        res.status(201).json({
+            _id: newUser.id,
+            username: newUser.username,
+            email: newUser.email
+        })
+    }
+    else {
+        res.status(400);
+        throw new Error("Unable to create user");
+    }
+
+});

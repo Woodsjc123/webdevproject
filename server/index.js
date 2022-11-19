@@ -9,14 +9,23 @@ const app = express();
 const uri = "mongodb+srv://woodsjc:BYRRwMYpTtkbOtQp@cluster0.wqrzkda.mongodb.net/?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 3000;
 
+
+// Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
 app.use("/api/users", router);
+
 
 // Routes
 app.get("/", (req, res) => {
     res.send("Home");
 });
 
+
+// Errors
 app.use(errorHandler);
 
 main().catch(err => console.log(err));
