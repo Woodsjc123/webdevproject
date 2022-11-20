@@ -1,5 +1,10 @@
 import { user } from "../models/users.js";
 import asyncHandler from "express-async-handler";
+import jwt from "jsonwebtoken";
+
+const genToken = (id) => {
+    return jwt.sign({id}, "emI202^D9pP5", {expiresIn: "1h"});
+};
 
 // Registers a new user
 export const register = asyncHandler(async (req, res) => {
@@ -33,17 +38,31 @@ export const register = asyncHandler(async (req, res) => {
         throw new Error("Email is already registered");
     }
 
+    // Creates the new user
     const newUser = await user.create({
         username,
         email,
         password
     });
 
+    // Token
+    const token = genToken(newUser._id);
+
+    // Sends cookie
+    res.cookie("token", token, {
+        path: "/",
+        httpOnly: true,
+        expires: (Date.now() + 36000),
+        sameSite: "none",
+        secure: true
+    })
+
     if(newUser){
         res.status(201).json({
             _id: newUser.id,
             username: newUser.username,
-            email: newUser.email
+            email: newUser.email,
+            token: token
         })
     }
     else {

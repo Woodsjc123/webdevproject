@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import { router } from "./routes/users.js"
 import { errorHandler } from './errorHandler.js';
 const app = express();
@@ -10,10 +11,11 @@ const uri = "mongodb+srv://woodsjc:BYRRwMYpTtkbOtQp@cluster0.wqrzkda.mongodb.net
 const PORT = process.env.PORT || 3000;
 
 
-// Middleware
+// Express Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 
 app.use("/api/users", router);
