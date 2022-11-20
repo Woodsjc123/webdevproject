@@ -52,3 +52,51 @@ export const register = asyncHandler(async (req, res) => {
     }
 
 });
+
+
+// Logs in a user
+export const login = asyncHandler(async (req, res) => {
+
+    const {email, password} = req.body;
+
+    // Checks if email is entered
+    if(!email) {
+        res.status(400);
+        throw new Error("Enter email");
+    }
+    // Check if password is entered
+    if(!password) {
+        res.status(400);
+        throw new Error("Enter password");
+    }
+
+    // Checks to see if user email is in database
+    const userExists = await user.findOne({email});
+
+    // If user does not exist
+    if(!userExists) {
+        res.status(400);
+        throw new Error("There is no user with that email");
+    }
+
+    // Checks if password is correct
+    if(password !== userExists.password) {
+        res.status(401);
+        throw new Error("Incorrect Password");
+    }
+
+    // If user is valid, return username
+    if(userExists) {
+        res.status(201).json({
+            email,
+        });
+    }
+    else {
+        res.status(400);
+        throw new Error("Incorrect email or password");
+    }
+});
+
+export const logout = asyncHandler(async (req, res) => {
+    res.send("Logout");
+});
