@@ -50,12 +50,12 @@ export const register = asyncHandler(async (req, res) => {
 
     // Sends cookie
     res.cookie("token", token, {
-        path: "/",
-        httpOnly: true,
-        expires: (Date.now() + 36000),
-        sameSite: "none",
-        secure: true
-    })
+        path: "/",      // Where cookie is stored
+        httpOnly: true, // Cookie only to be used by the web server
+        expires: new Date(Date.now() + (3600*1000)),  // Expires in one hour
+        sameSite: "none",   // Allows use with different URL
+        secure: true    // Only use with https
+    });
 
     if(newUser){
         res.status(201).json({
@@ -104,18 +104,53 @@ export const login = asyncHandler(async (req, res) => {
         throw new Error("Incorrect Password");
     }
 
-    // If user is valid, return username
-    if(userExists) {
-        res.status(201).json({
+    else {  // Else, create a token to log user in
+        const token = genToken(userExists._id);
+
+        res.cookie("token", token, {
+            path: "/",      // Where cookie is stored
+            httpOnly: true, // Cookie only to be used by the web server
+            expires: new Date(Date.now() + (3600*1000)),  // Expires in one hour
+            sameSite: "none",   // Allows use with different URL
+            secure: false    // Only use with https
+        });
+
+        const {_id, username, email} = userExists;
+        res.status(200).json({
+            _id,
+            username,
             email,
+            token
+        });
+    }
+});
+
+// Logout a user
+export const logout = asyncHandler(async (req, res) => {
+    res.cookie("token", "", {
+        path: "/",      // Where cookie is stored
+        httpOnly: true, // Cookie only to be used by the web server
+        expires: new Date(Date.now()),  // Expires the cookie
+        sameSite: "none",   // Allows use with different URL
+        secure: false        // Only use with https
+    });
+    return res.status(200).json({ message: "Successfully logged out" });
+});
+
+// Fetch User Profile
+export const userProfile = asyncHandler(async (req, res) => {
+    const userData = await user.findById(req.user._id);
+
+    if(userData){
+        res.status(200).json({
+            _id: userData.id,
+            username: userData.username,
+            email: userData.email,
+            token: userData.token
         });
     }
     else {
         res.status(400);
-        throw new Error("Incorrect email or password");
+        throw new Error("User does not exist");
     }
-});
-
-export const logout = asyncHandler(async (req, res) => {
-    res.send("Logout");
 });

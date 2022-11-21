@@ -4,7 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import { router } from "./routes/users.js"
-import { errorHandler } from './errorHandler.js';
+import { errorHandler } from './middleware/errorHandler.js';
 const app = express();
 
 const uri = "mongodb+srv://woodsjc:BYRRwMYpTtkbOtQp@cluster0.wqrzkda.mongodb.net/?retryWrites=true&w=majority";
