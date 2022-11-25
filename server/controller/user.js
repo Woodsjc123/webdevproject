@@ -220,7 +220,3 @@ export const updatePassword = asyncHandler (async(req, res) => {
         throw new Error("Password is incorrect");
     }
 });
-
-export const forgotPassword = asyncHandler (async(req, res) => {
-    // placeholder
-});
