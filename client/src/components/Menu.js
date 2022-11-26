@@ -1,11 +1,10 @@
 import React from 'react'
-import {GrAdd} from 'react-icons/fa'
-import MenuItem from './MenuItem.js'
+import MenuList from './MenuList.js'
 
 const Menu = () => {
   return (
     <div className='menu'>
-      <MenuItem />
+      <MenuList />
     </div>
   )
 }

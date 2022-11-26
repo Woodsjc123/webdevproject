@@ -1,45 +1,7 @@
-body {
-  /* background-image: url('../images/background.jpg'); */
-  background-repeat: no-repeat;
-}
-
 h1 {
   text-align: center;
-  color: rgb(228, 102, 102);
 }
 
-nav ul {
-  padding: 0;
-  display: flex;
-  justify-content: space-between;
-  list-style-type: none;
-  margin-top: 0px;
-}
-
-#page_wrapper {
-  width: 100%;
-  max-width: 1024px;
-  margin: 0 auto;
-}
-
-nav ul {
-  padding: 0;
-  display: flex;
-  justify-content: space-between;
-  list-style-type: none;
-}
-
-nav li a {
-  color: #000000;
-  font-size: 28px;
-  text-decoration: none;
-}
-
-nav li a:hover {
-  color: #dd5771;
-}
-
-header {
-  background-color: rgb(255, 255, 255);
-  opacity: 0.9;
+h2 {
+  text-align: center;
 }
