@@ -3,7 +3,6 @@ import NewMenuItem from './NewMenuItem';
 import { useState } from 'react';
 import axios from 'axios'
 
-
 const MenuList = () => {
 
   const [items, setItems] = useState([])
@@ -12,11 +11,13 @@ const MenuList = () => {
     name: "",
     description: "",
     price: 0,
+    image: "",
     completed: false
   })
   const {name} = formData;
   const {description} = formData;
   const {price} = formData;
+  const {image} = formData;
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;
@@ -24,59 +25,27 @@ const MenuList = () => {
   };
 
 
-  const getItems = async () => {
-
-    try {
-      const {data} = await axios.get("http://localhost:3001/api/menu/getmenu");
-      setItems(data);
-    } 
-    catch (error) {
-      alert(error.message);
-    }
-  };
-
-  useEffect(() => {
-    getItems()
-  }, [])
-
   const createItem = async (e) => {
     e.preventDefault();
     if(name === "") {
       return alert("Name cannot be empty");
     }
-    if(price === 0) {
-      return alert("Price cannot be zero");
+    if(price < 0) {
+      return alert("Price cannot be zero or less");
     }
 
     try {
       await axios.post("http://localhost:3001/api/menu/newitem", formData)  // Post form data to server and try to make a new item
-      setFormData({...formData, name: "", description: "", price: 0}) // Clear the form
+      setFormData({...formData, name: "", description: "", price: 0, image: ""}) // Clear the form
     } catch (error) {
       alert(error.message);
     }
   };
 
   return (
-    <div className="movie" >
-      <h2>Menu</h2>
+    <div className="menu" >
 
-
-    {
-      items.length === 0 ? (
-        <p className='displayItems'>Not Items available</p>
-      ) : (
-        <>
-        {items.map((item, i) => {
-          return(
-            <p>Hello</p>
-          );
-        })}
-        </>
-      )
-    }
-
-
-      <NewMenuItem name={name} description={description} price={price} handleInputChange={handleInputChange} 
+      <NewMenuItem name={name} description={description} price={price} image={image} handleInputChange={handleInputChange} 
       createItem={createItem}/>
 
     </div>

@@ -1,4 +1,3 @@
-import { Decimal128 } from "bson";
 import mongoose from "mongoose";
 
 const schema = mongoose.Schema({
@@ -10,8 +9,11 @@ const schema = mongoose.Schema({
         type: String
     },
     price: {
-        type: Decimal128,
+        type: Number,
         required: [true, "No Price"]
+    },
+    image: {
+        type: String
     }
 });
 

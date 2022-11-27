@@ -7,6 +7,8 @@ import About from "./pages/About.js";
 import Profile from "./pages/Profile.js"
 import PageNotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 export default function App() {
   
@@ -17,7 +19,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </Router>

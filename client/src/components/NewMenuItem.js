@@ -1,15 +1,34 @@
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-const NewMenuItem = ({createItem, name, description, price, img, handleInputChange}) => {
+const NewMenuItem = ({createItem, name, description, price, image, handleInputChange}) => {
 
   return (
-    <form className='newItem' onSubmit={createItem}>
-        <input type="text" placeholder="Add an Item" name="name" value={name} onChange={handleInputChange}></input><br />
-        <input type="textbox" placeholder="Add a Description" name="description" value={description} onChange={handleInputChange}></input><br />
-        <input type="number" placeholder="Set a Price" name="price" value={price} onChange={handleInputChange}></input><br />
-        <label for="img">Select image:</label><br />
-        <input type="file" id="img" name="img" accept="image/*" value={img}></input><br /><br />
-        <button type='submit'>Add</button>
-    </form>
+    <Form onSubmit={createItem} method="POST">
+      <Form.Group className="mb-3" controlId="itemText" >
+        <Form.Label>Item Name</Form.Label>
+        <Form.Control type="text" placeholder="Enter Name of Item" value={name} name="name" onChange={handleInputChange}/>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="description" >
+        <Form.Label>Item Description</Form.Label>
+        <Form.Control type="text" placeholder="Description" value={description} name="description" onChange={handleInputChange}/>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="price" >
+        <Form.Label>Item Price</Form.Label>
+        <Form.Control type="number" placeholder="Price" value={price} name="price" onChange={handleInputChange}/>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="image" >
+        <Form.Label>Item Image</Form.Label>
+        <Form.Control type="text" placeholder="Enter Image URL" value={image} name="image" onChange={handleInputChange}/>
+      </Form.Group>
+
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 }
 

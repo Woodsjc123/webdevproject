@@ -7,7 +7,6 @@ import { authorise } from '../middleware/authorisation.js';
 
 export const router = express.Router();
 
-
 // User Routes
 router.post("/register", register);
 router.post("/login", login);

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from "../components/Navbar.js";
-import Menu from "../components/Menu.js";
-
+import '../css/App.css'
+import MenuList from "../components/MenuList.js";
+import MenuCard from "../components/MenuCard.js";
 
 export default function Home() {
 
@@ -26,12 +26,18 @@ export default function Home() {
       </head>
       <body>
 
-        <h1>Sushi Restaurant</h1>
-        <br />
+        <h1>Sushijet</h1>
+        <h3>/////////////////////////////</h3>
+        <h3>お尻を食べる</h3>
 
-        <h2>Menu</h2>
+        <h2 >Menu</h2>
         <hr />
 
+        <MenuCard />
+
+        <br />
+        <hr />
+        <MenuList />
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       </body>

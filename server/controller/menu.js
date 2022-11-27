@@ -4,7 +4,10 @@ import asyncHandler from "express-async-handler";
 // Adds an item to the menu
 export const addItem = asyncHandler (async(req, res) => {
 
-    const {name, description, price} = req.body;
+    const {name, description, price, image} = req.body;
+
+    console.log(req.body)
+    
 
     if(!name) {  // Checks if username has been submitted
         res.status(400);
@@ -25,7 +28,8 @@ export const addItem = asyncHandler (async(req, res) => {
     const newItem = await menuItem.create({
         name,
         description,
-        price
+        price,
+        image
     });
 
     if(newItem){
@@ -33,7 +37,8 @@ export const addItem = asyncHandler (async(req, res) => {
             _id: newItem.id,
             username: newItem.name,
             description: newItem.description,
-            price: newItem.price
+            price: newItem.price,
+            image: newItem.image
         })
     }
 
