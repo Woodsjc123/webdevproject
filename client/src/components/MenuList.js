@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import NewMenuItem from './NewMenuItem';
 import { useState } from 'react';
 import axios from 'axios'
 
 const MenuList = () => {
-
-  const [items, setItems] = useState([])
 
   const [formData, setFormData] = useState({
     name: "",
