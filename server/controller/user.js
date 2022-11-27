@@ -94,7 +94,7 @@ export const login = asyncHandler(async (req, res) => {
 
     // If user does not exist
     if(!userExists) {
-        res.status(400);
+        res.status(400).send("There is no user with that email");
         throw new Error("There is no user with that email");
     }
 
@@ -110,7 +110,7 @@ export const login = asyncHandler(async (req, res) => {
         res.cookie("token", token, {
             path: "/",      // Where cookie is stored
             httpOnly: true, // Cookie only to be used by the web server
-            expires: new Date(Date.now() + (3600*1000)),  // Expires in one hour
+            expires: new Date(Date.now() + (3600*10000)),  // Expires in one hour
             sameSite: "none",   // Allows use with different URL
             secure: false    // HTTPS does not work on localhost
         });

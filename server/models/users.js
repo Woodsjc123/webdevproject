@@ -10,6 +10,7 @@ const schema = mongoose.Schema({
         required: [true, "No email"],
         unique: true,
         trim: true,
+        // https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression
         match: [/^\S+@\S+\.\S+$/]
     },
     password: {

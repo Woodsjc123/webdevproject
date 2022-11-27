@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const RegisterForm = ({registerUser, username, email, password, repeatPassword, handleInputChange}) => {
+const RegisterForm = ({registerUser, username, email, password, handleInputChange}) => {
     
   return (
       <Form onSubmit={registerUser} method="POST">
@@ -23,16 +23,11 @@ const RegisterForm = ({registerUser, username, email, password, repeatPassword, 
           <Form.Control type="password" placeholder="Password" value={password} name="password" onChange={handleInputChange}/>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="repeatPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control type="password" placeholder="Confirm Password" value={repeatPassword} name="repeatPassword" onChange={handleInputChange} />
-        </Form.Group>
-
         <Button variant="primary" type="submit">
           Submit
         </Button>
       </Form>
   );
-};
+}
 
 export default RegisterForm;

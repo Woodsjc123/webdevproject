@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import { router } from "./routes/users.js"
 import { errorHandler } from './middleware/errorHandler.js';
+
 const app = express();
 
 const uri = "mongodb+srv://woodsjc:BYRRwMYpTtkbOtQp@cluster0.wqrzkda.mongodb.net/?retryWrites=true&w=majority";
@@ -13,11 +14,10 @@ const PORT = 3001;
 
 // Express Middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors())
-
+app.use(cors());
 
 app.use("/api/users", router);
 app.use("/api/menu", router);

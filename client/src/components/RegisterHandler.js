@@ -1,5 +1,5 @@
-import React from 'react'
-import RegisterForm from '../components/RegisterForm'
+import React from 'react';
+import RegisterForm from './RegisterForm';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -8,18 +8,15 @@ const RegisterHandler = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
-    password: "",
-    repeatPassword: "",
-    completed: false
-  })
-  const {username} = formData.username;
-  const {email} = formData.email;
-  const {password} = formData.password;
-  const {repeatPassword} = formData.repeatPassword;
+    password: ""
+  });
+  const {username} = formData;
+  const {email} = formData;
+  const {password} = formData;
 
   const handleInputChange = (e) => {
-    const {username, value} = e.target;
-    setFormData({ ...formData, [username]: value })
+    const {name, value} = e.target;
+    setFormData({ ...formData, [name]: value })
   };
 
   const registerUser = async(e) => {
@@ -33,13 +30,10 @@ const RegisterHandler = () => {
     if(password === "") {
       return alert("Password cannot be empty");
     }
-    if(repeatPassword === "") {
-      return alert("Confirm password");
-    }
 
     try {
       await axios.post("http://localhost:3001/api/users/register", formData )  // Post form data to server and try to make a new item
-      setFormData({...formData, username: "", email: "", password: "", repeatPassword: ""}) // Clear the form
+      setFormData({...formData, username: "", email: "", password: ""}) // Clear the form
     } catch (error) {
       alert(error.message);
     }
@@ -47,7 +41,7 @@ const RegisterHandler = () => {
 
   return (
     <div class="register">
-      <RegisterForm username={username} email={email} password={password} repeatPassword={repeatPassword} handleInputChange={handleInputChange} registerUser={registerUser}/>
+      <RegisterForm username={username} email={email} password={password} handleInputChange={handleInputChange} registerUser={registerUser}/>
     </div>
   );
 };

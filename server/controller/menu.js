@@ -5,8 +5,6 @@ import asyncHandler from "express-async-handler";
 export const addItem = asyncHandler (async(req, res) => {
 
     const {name, description, price, image} = req.body;
-
-    console.log(req.body)
     
 
     if(!name) {  // Checks if username has been submitted
@@ -57,3 +55,22 @@ export const getMenu = asyncHandler (async(req, res) => {
     }
 
 });
+
+// Deletes an item from the menu
+export const deleteItem = asyncHandler (async(req, res) => {
+    const {name} = req.body;
+
+    // Checks if item exists
+    const itemExists = await menuItem.findOne({name});
+
+    if(itemExists){
+        try {
+            await menuItem.deleteOne({name: name});
+            res.status(200).json({
+                name
+            })
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
+}); 
