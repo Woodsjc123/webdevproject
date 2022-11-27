@@ -24,11 +24,11 @@ export default function MenuCard() {
         }
       };
 
-      const deleteItem = async (name) => {
+
+      const deleteItem = async (inputname) => {
 
         try {
-          await axios.delete("http://localhost:3001/api/menu/deleteitem", name);
-          
+          await axios.delete("http://localhost:3001/api/menu/deleteitem", {data: {name: inputname}});
         }
         catch (error) {
           alert(error.message);
@@ -46,7 +46,7 @@ export default function MenuCard() {
                 <Card.Text>
                     {card.description}
                 </Card.Text>
-                <span>{authenticated ? <Button variant="danger" onClick={deleteItem(card.name)}>Delete</Button> : <br />}</span>
+                <span>{authenticated ? <Button variant="danger" onClick={() => {deleteItem(card.name)}}>Delete</Button> : <br />}</span>
             </Card.Body>
             </Card>
         )

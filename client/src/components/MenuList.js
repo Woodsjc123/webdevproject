@@ -2,7 +2,6 @@ import React from 'react';
 import NewMenuItem from './NewMenuItem';
 import { useState } from 'react';
 import axios from 'axios'
-import MenuCard from './MenuCard';
 
 const MenuList = () => {
 
